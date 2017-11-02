@@ -9,6 +9,13 @@ require 'random_data'
     body:   RandomData.random_paragraph
   )
 end
+1.times do
+Post.create!(
+# #2
+  title:  "this wasnt that hard",
+  body:   "really, how much did you want to test me?"
+)
+end
 posts = Post.all
 
 # Create Comments
@@ -18,6 +25,13 @@ posts = Post.all
 # #4
     post: posts.sample,
     body: RandomData.random_paragraph
+  )
+end
+2.times do
+  Comment.create!(
+# #4
+    post: posts.sample,
+    body: "simple replacement teaches something at least."
   )
 end
 
