@@ -5,8 +5,8 @@ RSpec.describe QuestionController, type: :controller do
   let (:my_question) do
     Question.create(
     id: 1,
-    title: RandomData.random_sentence,
-    body: RandomData.random_paragraph,
+    title: "New Question Title",
+    body: "New Question Body",
     resolved: false,
     )
   end
@@ -16,8 +16,19 @@ RSpec.describe QuestionController, type: :controller do
       get :show, {id: my_question.id}
       expect(response).to have_http_status(:success)
     end
+    it "assigns my_question to @question" do
+      get :index
+      expect(assigns(:questions)).to eq([my_question])
+    end
+  end
 
-    it "renders the show view" do
+  describe  "GET show" do
+    it "returns http success" do
+      get :show, {id: my_question.id}
+      expect(response).to render_template :show
+    end
+
+    it "renders the #show view" do
       get :show, {id: my_question.id}
       expect(response).to render_template :show
     end
