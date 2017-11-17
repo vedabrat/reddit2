@@ -21,7 +21,16 @@ end
 
 posttest(50,RandomData.random_sentence,RandomData.random_paragraph)
 posttest(1,"this wasnt that hard","really, how much did you want to test me?")
-
+ # Create Sponsored Posts
+5.times do
+  SponsoredPost.create!(
+    topic: topics.sample,
+    title:  RandomData.random_sentence,
+    body: RandomData.random_paragraph,
+    price: 100
+  )
+end
+sponsored_posts = SponsoredPost.all
 def commenttest(boop,boody)
   boop.times do
     Comment.create!(
@@ -51,6 +60,6 @@ puts "Seed finished"
 puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
-
+puts "#{SponsoredPost.count} sponsored posts created"
 # a seeds file essentially prepopulates data into your app so that the variables
 # can execute efficiently as if they were information the users would put in .
