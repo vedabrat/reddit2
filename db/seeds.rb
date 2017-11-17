@@ -21,16 +21,18 @@ end
 
 posttest(50,RandomData.random_sentence,RandomData.random_paragraph)
 posttest(1,"this wasnt that hard","really, how much did you want to test me?")
+
  # Create Sponsored Posts
 5.times do
   SponsoredPost.create!(
-    topic: topics.sample,
+    topic: @topics.sample,
     title:  RandomData.random_sentence,
     body: RandomData.random_paragraph,
     price: 100
   )
 end
 sponsored_posts = SponsoredPost.all
+
 def commenttest(boop,boody)
   boop.times do
     Comment.create!(
