@@ -15,6 +15,10 @@ class SponsoredPostController < ApplicationController
       @sponsored_post.price = params[:sponsored_post][:price]
       @topic = Topic.find(params[:topic_id])
       @sponsored_post.topic = @topic
+      binding.pry
+
+      puts "program resumes here."
+      @sponsored_post.count = SponsoredPost.count
 
       if @sponsored_post.save
         flash[:notice] = "Post was saved."
@@ -46,7 +50,7 @@ class SponsoredPostController < ApplicationController
 
     def destroy
       @sponsored_post = SponsoredPost.find(params[:id])
-  
+
       if @sponsored_post.destroy
         flash[:notice] = "\"#{@sponsored_post.title}\" was deleted successfully."
         redirect_to @sponsored_post.topic
