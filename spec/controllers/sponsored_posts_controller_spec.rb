@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SponsoredPostController, type: :controller do
+RSpec.describe SponsoredPostsController, type: :controller do
   let(:my_topic) { Topic.create!(name:  RandomData.random_sentence, description: RandomData.random_paragraph) }
   let(:my_sponsored_post) { my_topic.sponsored_posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, price: 100) }
 
@@ -39,7 +39,9 @@ RSpec.describe SponsoredPostController, type: :controller do
 
   describe "POST create" do
     it "increases the number of Sponsored Post by 1" do
-      expect{post :create, topic_id: my_topic.id, sponsored_post: {title: RandomData.random_sentence, body: RandomData.random_paragraph, price: 100}}.to change(SponsoredPost,:count).by(1)
+      expect{post :create, topic_id: my_topic.id,
+        sponsored_post: {title: RandomData.random_sentence,
+          body: RandomData.random_paragraph, price: 100}}.to change(SponsoredPost,:count).by(1)
     end
 
     it "assigns the new sponsored_post to @sponsored_post" do

@@ -1,4 +1,4 @@
-class SponsoredPostController < ApplicationController
+class SponsoredPostsController < ApplicationController
   def show
       @sponsored_post = SponsoredPost.find(params[:id])
     end
@@ -7,18 +7,14 @@ class SponsoredPostController < ApplicationController
       @topic = Topic.find(params[:topic_id])
       @sponsored_post = SponsoredPost.new
     end
-
     def create
-      @sponsored_post = SponsoredPost.new
+        @sponsored_post = SponsoredPost.new
+      @topic = Topic.find(params[:topic_id])
+      @sponsored_post = @topic.sponsored_posts.new
+
       @sponsored_post.title = params[:sponsored_post][:title]
       @sponsored_post.body = params[:sponsored_post][:body]
       @sponsored_post.price = params[:sponsored_post][:price]
-      @topic = Topic.find(params[:topic_id])
-      @sponsored_post.topic = @topic
-      binding.pry
-
-      puts "program resumes here."
-      @sponsored_post.count = SponsoredPost.count
 
       if @sponsored_post.save
         flash[:notice] = "Post was saved."
@@ -53,7 +49,7 @@ class SponsoredPostController < ApplicationController
 
       if @sponsored_post.destroy
         flash[:notice] = "\"#{@sponsored_post.title}\" was deleted successfully."
-        redirect_to @sponsored_post.topic
+        redirect_to @sponsored_post
       else
         flash.now[:alert] = "There was an error deleting the post."
         render :show

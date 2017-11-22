@@ -5,8 +5,12 @@ RSpec.describe SponsoredPost, type: :model do
   let(:description) { RandomData.random_paragraph }
   let(:title) { RandomData.random_sentence }
   let(:body) { RandomData.random_paragraph }
-  let(:topic) { Topic.create!(name: name, description: description) }
-  let(:sponsored_post) { topic.sponsored_posts.create!(title: title, body: body) }
+  let(:price) {price}
+  let(:topic) { Topic.create!(
+    name: name,
+    description: description) }
+  let(:sponsored_post) {
+    topic.sponsored_posts.create!(title: title, body: body) }
 
   it { is_expected.to belong_to(:topic) }
 
@@ -14,5 +18,8 @@ RSpec.describe SponsoredPost, type: :model do
     it "has title and body attributes" do
       expect(sponsored_post).to have_attributes(title: title, body: body)
     end
+  #
+  #   it "belongs/references to a topic"
+  #     expect(sponsored_post).to have_attributes(:topic)
   end
 end
