@@ -5,7 +5,7 @@ RSpec.describe SponsoredPostsController, type: :controller do
   describe "GET #show" do
     let(:sponsored_post) { SponsoredPost.create! }
     let(:params) {{ id: sponsored_post.id }}
-
+ 
     def do_request
       get :show, params: params
     end
