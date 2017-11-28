@@ -73,7 +73,29 @@ RSpec.describe TopicsController, type: :controller do
       end
     end
   end
+  context "moderator user" do
+    before do
+      user = User.create!(name: "Bloccit Mod", email: "moderator@bloccit.com", password: "helloworld", role: :moderator)
+      create_session(user)
+    end
 
+    describe "GET edit" do
+      it "returns http redirect" do
+        get :edit, {id: my_topic.id}
+        expect(response).to redirect_to(topics_path)
+      end
+    end
+
+    describe "PUT update" do
+      it "returns http redirect" do
+        new_name = RandomData.random_sentence
+        new_description = RandomData.random_paragraph
+
+        put :update, id: my_topic.id, topic: {name: new_name, description: new_description}
+        expect(response).to redirect_to(topics_path)
+      end
+    end
+  end
   context "member user" do
     before do
       user = User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld", role: :member)
