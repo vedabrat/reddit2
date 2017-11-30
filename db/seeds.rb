@@ -35,6 +35,17 @@ end
 end
 @topics = Topic.all
 
+50.times do
+  @post = Post.create!(
+    user: @users.sample,
+    topic:  @topics.sample,
+    title:  RandomData.random_sentence,
+    body:   RandomData.random_paragraph
+  )
+end
+@post.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
+rand(1..5).times { @post.votes.create!(value: [-1, 1].sample, user: @users.sample) }
+
 def posttest(num,title,body)
   num.times do
     Post.create!(
@@ -68,12 +79,12 @@ commenttest(2,"simple replacement teaches something at least.")
 # been created.
 # the next six lines of code test to ensure that a comment is not created if it
 # existed previously
-2.times do
-  Comment.find_or_create_by!(
-    post: Post.all.sample,
-    body: "simple replacement teaches something at least."
-  )
-end
+# 2.times do
+#   Comment.find_or_create_by!(
+#     post: Post.all.sample,
+#     body: "simple replacement teaches something at least."
+#   )
+# end
 
 user = User.first
 user.update_attributes!(
@@ -85,6 +96,8 @@ puts "#{Topic.count} topics created"
 puts "#{User.count} users created"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
+puts "#{Vote.count} votes created"
+
 
 # a seeds file essentially prepopulates data into your app so that the variables
 # can execute efficiently as if they were information the users would put in .
