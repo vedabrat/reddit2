@@ -34,6 +34,9 @@
           <%= pluralize(@post.down_votes, 'down vote') %>
         </small>
       </div>
+      <% if current_user %>
+        <%= render partial: 'favorites/favorite', locals: { post: @post } %>
+      <% end %>
     </h3>
   </div>
 </div>
