@@ -30,7 +30,7 @@ RSpec.describe UsersController, type: :controller do
     it "creates a new user" do
       expect{
         post :create, user: new_user_attributes
-      }.to chante(User, :count).by(1)
+      }.to change(User, :count).by(1)
     end
     it "sets user name properly" do
       post :create, user: new_user_attributes
@@ -47,7 +47,7 @@ RSpec.describe UsersController, type: :controller do
     end
     it "sets user password_confirmation properly" do
       post :create, user: new_user_attributes
-      expect(assigns(:user).password_cconfirmation).to eq new_user_attributes[:password_cconfirmation]
+      expect(assigns(:user).password_confirmation).to eq new_user_attributes[:password_confirmation]
 
     end
     it "logs the user in after sign up" do
